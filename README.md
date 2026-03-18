@@ -122,7 +122,7 @@ To build it yourself:
    git clone https://github.com/DDDrag0/RiseToRuins-Modloader.git
    cd rise-to-ruins-modloader
    ```
-2. Ensure you have **JDK 8** installed.
+2. Ensure you have **JDK 8** or + installed, but i recomend 8 for no problems with newer versions as the game uses JDK 8.
 3. Compile the sources (all classes are in the `rtrModGui` package):
    ```
    javac -d out rtrModGui/*.java
