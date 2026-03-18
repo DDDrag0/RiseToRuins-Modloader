@@ -111,8 +111,11 @@ All enabled mods are applied **transparently** – the game behaves as if the or
 ## For Developers
 
 ### Building from Source
+> ⚠️ **Important:**
+> I'm developing the modloader inside the game folder, so if errors appear, the solution is most likely to develop there. You can copy the game folder into any folder you choose, as the game always works for testing.
+The project is structured as a standard Java application.
 
-The project is structured as a standard Java application. To build it yourself:
+To build it yourself:
 
 1. Clone the repository:
    ```
