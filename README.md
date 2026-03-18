@@ -132,17 +132,20 @@ The project is structured as a standard Java application. To build it yourself:
 
 ### Bytecode Viewer Plugin (Complementary Tool)
 
-To easily create mods, you can use the companion plugin for **Bytecode Viewer** – **Export Modified Only**. This plugin allows you to export only the classes you have modified during a reverse‑engineering session, directly as a zip file ready to be dropped into the mod loader.
+To easily create mods I strongly recommend Bytecode Viewer under CFR decompiler, you can also use the companion plugin for **Bytecode Viewer** – **Export Modified Only**. This plugin allows you to export only the classes you have modified during a reverse‑engineering session, directly as a zip file ready to be dropped into the mod loader.
 
-- **Repository:** [link‑to‑plugin‑repo]
-- **Installation:** Download the `ExportModifiedOnly.jar` and place it in the Bytecode Viewer plugins folder (`%USERPROFILE%\.Bytecode-Viewer\plugins\` on Windows, `~/.Bytecode-Viewer/plugins/` on Linux/macOS).
+- **Repository:** [ExportModifiedOnly](https://github.com/DDDrag0/ExportModifiedOnly-Bytecode-Viewer-Plugin)
+- **Installation:**
+  1. Download the JAR: Grab the latest `ExportModifiedOnly.jar` from the [Releases](https://github.com/DDDrag0/ExportModifiedOnly-Bytecode-Viewer-Plugin/releases) page.
+  2. In BCV go to Plugin → Open Plugin... → It should open a file explorer, select the `ExportModifiedOnly.jar`.
+  3. Click Run so that it is active 
 - **Usage:**  
   1. Open a jar/class in Bytecode Viewer.  
   2. Run the plugin (first time captures original state).  
   3. Modify your classes and save the workspace.  
   4. Run the plugin again – a zip containing only the modified classes is created in the same directory as your last save.
 
-This plugin is maintained separately and is also open source under the MIT license.
+This plugin is maintained separately and is distributed under the GNU General Public License v3.0, the same license as Bytecode Viewer.
 
 ---
 
