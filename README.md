@@ -28,7 +28,7 @@ It allows you to load modifications (mods) without altering the original game fi
 - **Non‑intrusive** – the original `core.jar` and game files are never modified.
 - **Drag & drop installation** – drop `.zip` files directly into the window.
 - **Full mod management** – enable, disable or delete mods with one click.
-- **Multi‑mod support** – load several mods at the same time; the custom class loader merges them transparently.
+- **Multi‑mod support** – load several mods at the same time; you can manage multiple mods on a single window.
 - **Real‑time log** – see exactly what happens during installation and game launch.
 - **Automatic native handling** – detects and configures LWJGL native libraries (`natives/` or `lib/natives/`).
 - **Preserves original game** – the game itself stays untouched; the loader runs alongside it.
