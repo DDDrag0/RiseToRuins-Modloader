@@ -1,7 +1,7 @@
 package rtr.map.tileSets;
 
 import org.newdawn.slick.*;
-import rtr.map.TileSet;
+import rtr.map.MapTilesLoader.TileSet;
 import rtr.map.MapTilesLoader.TileSetType;
 import rtr.resources.*;
 
