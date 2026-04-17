@@ -1,6 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package rtr.gui.states.shared;
 
 import java.util.ArrayList;

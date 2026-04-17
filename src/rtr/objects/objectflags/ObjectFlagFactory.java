@@ -1,6 +1,3 @@
-/*
- * Decompiled with CFR 0.152.
- */
 package rtr.objects.objectflags;
 
 import java.util.HashMap;
