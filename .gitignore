@@ -8,6 +8,7 @@
 /src/*
 !/src/rtrModGui/
 !/src/rtr/
+!/src/unusedClasses/
 
 ### IntelliJ IDEA ###
 out/

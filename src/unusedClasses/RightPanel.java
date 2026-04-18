@@ -1,4 +1,5 @@
-package rtr.gui.states.mapeditor;
+package unusedClasses;
+//package rtr.gui.states.mapeditor;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
