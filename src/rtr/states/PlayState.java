@@ -3672,8 +3672,6 @@ extends StateBase {
         }
         //qui vanno aggiunti tutti i listener dei vari tasti nuovi
 
-        // @@Inizio_Modifiche_Listener
-
         if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "modTab")) {
             this.gui.getRightPanel().setPanelPage(GUIEnums.GUIPanelPage.RIGHT_CATEGORY_MOD_1);
             if (this.gui.getRightPanel().isPanelHidden()) {
@@ -3681,7 +3679,10 @@ extends StateBase {
             }
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
-        if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelCategoryMod1")) {
+
+        // @@Inizio_Modifiche_Listener
+
+        if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelCategoryMod_1")) {
             this.gui.getRightPanel().setPanelPage(GUIEnums.GUIPanelPage.RIGHT_MOD_1_1);
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
