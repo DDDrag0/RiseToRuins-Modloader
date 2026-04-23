@@ -1,4 +1,5 @@
-package rtr.objects.towerhead.towerheadflags;
+package unusedClasses.towerheadflags;
+//package rtr.objects.towerhead.towerheadflags;
 
 import java.util.HashMap;
 import org.newdawn.slick.SlickException;

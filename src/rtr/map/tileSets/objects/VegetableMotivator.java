@@ -5,8 +5,8 @@ import rtr.font.Text;
 import rtr.map.MapTilesLoader;
 import rtr.map.tileSets.TileSetBase;
 
-public class CrystalMotivator extends TileSetBase {
-    public CrystalMotivator(int tGID) {
+public class VegetableMotivator extends TileSetBase {
+    public VegetableMotivator(int tGID) {
         super(tGID, MapTilesLoader.TileSetType.OBJECT);
     }
 
@@ -16,9 +16,9 @@ public class CrystalMotivator extends TileSetBase {
         this.layer = (byte)11;
         this.objectWidth = 2;
         this.objectHeight = 2;
-        this.fileName = "crystalMotivator";
-        this.name = Text.getText("object.building." + this.fileName + ".name");
-        this.description = Text.getText("object.building." + this.fileName + ".description");
+        this.fileName = "vegetableMotivator"; //nome del file png dal quale prende l'immagine la torre
+        this.name = Text.getText("Vegetable Motivator");
+        this.description = Text.getText("Motivates raw vegetable tiles");
     }
 }
 

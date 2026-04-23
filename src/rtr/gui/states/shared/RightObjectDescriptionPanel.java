@@ -636,7 +636,25 @@ extends SharedGUIPanelBase {
                 this.setHighlightedObject(MapTilesLoader.TileSet.CASTLE_1);
             } else if (intersectingButton.equals("panelLootBox")) {
                 this.setHighlightedObject(MapTilesLoader.TileSet.LOOT_BOX);
-            } else {
+            }
+
+            //Qui possono essere aggiunte nuove regole
+
+            //@@Inizio_Creazione_Pannelli@@
+
+            else if (intersectingButton.equals("panelModStructure_1_1")) {
+                this.setHighlightedObject(MapTilesLoader.TileSet.WOOD_MOTIVATOR);
+            }
+            else if (intersectingButton.equals("panelModStructure_1_2")) {
+                this.setHighlightedObject(MapTilesLoader.TileSet.ROCK_MOTIVATOR);
+            }
+            else if (intersectingButton.equals("panelModStructure_1_3")) {
+                this.setHighlightedObject(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR);
+            }
+
+            //@@Fine_Creazione_Pannelli@@
+
+            else {
                 this.resetHighlightedObject();
             }
         } else {

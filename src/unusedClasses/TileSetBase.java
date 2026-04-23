@@ -1,4 +1,5 @@
-package rtr.map.tileSets;
+package unusedClasses;
+//package rtr.map.tileSets;
 
 import org.newdawn.slick.*;
 import rtr.map.MapTilesLoader.TileSet;

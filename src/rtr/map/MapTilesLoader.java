@@ -269,6 +269,7 @@ import rtr.map.tileSets.terrain.WaterPartiallyDryFrozenAccent;
 import rtr.map.tileSets.terrain.WaterPartiallyFrozen;
 import rtr.map.tileSets.terrain.WaterPartiallyFrozenAccent;
 
+import rtr.map.tileSets.objects.*;
 
 public class MapTilesLoader
 {
@@ -763,6 +764,17 @@ public class MapTilesLoader
         RELIQUARY(new Reliquary(MapTilesLoader.calcObjectTileID(92, 0), 0)),
         RELIQUARY_UPGRADE_1(new Reliquary(MapTilesLoader.calcObjectTileID(92, 1), 1)),
         RELIQUARY_UPGRADE_2(new Reliquary(MapTilesLoader.calcObjectTileID(92, 2), 2)),
+
+        //tecnicamente il range parte da 93, il sub invece di default è 0, poi collegata agli upgrade, quindi se upgrade è 1 allora il sub è 1, se up2 sub2 e così via...
+
+        //@@Inizio_Aggiunta_Enums_Strutture
+
+        WOOD_MOTIVATOR(new WoodMotivator(MapTilesLoader.calcObjectTileID(93, 0))),
+        ROCK_MOTIVATOR(new RockMotivator(MapTilesLoader.calcObjectTileID(94, 0))),
+        VEGETABLE_MOTIVATOR(new VegetableMotivator(MapTilesLoader.calcObjectTileID(95, 0))),
+
+        //@@Fine_Aggiunta_Enums_Strutture
+
         TREES_BLUE_COLLECTED(new TreesBlueCollected(MapTilesLoader.calcTerrainTileID(0, 3))),
         TREES_BLUE_ACCENT(new TreesBlueAccent(MapTilesLoader.calcTerrainTileID(0, 2))),
         TREES_BLUE_DEAD(new TreesBlueDead(MapTilesLoader.calcTerrainTileID(0, 1)), null, TREES_BLUE_COLLECTED),
@@ -940,6 +952,12 @@ public class MapTilesLoader
         MUSHROOMS_COLLECTED(new MushroomsCollected(MapTilesLoader.calcTerrainTileID(23, 2))),
         MUSHROOMS_ACCENT(new MushroomsAccent(MapTilesLoader.calcTerrainTileID(23, 1))),
         MUSHROOMS(new Mushrooms(MapTilesLoader.calcTerrainTileID(23, 0)), MUSHROOMS_ACCENT, MUSHROOMS_COLLECTED);
+
+        //@@Inizio_Aggiunta_Enums_Tiles
+
+
+
+        //@@Fine_Aggiunta_Enums_Tiles
 
         private TileSetBase tileSetTemplate;
         private TileSet accentTileSet;

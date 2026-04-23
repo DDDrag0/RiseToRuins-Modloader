@@ -1,10 +1,10 @@
-package rtr.objects.towerhead.towerheadflags;
+package unusedClasses.towerheadflags;
+//package rtr.objects.towerhead.towerheadflags;
 
 import rtr.PerkModule;
 import rtr.map.CollisionModule;
 import rtr.missiles.MissileModule;
 import rtr.objects.towerhead.TowerBase;
-import rtr.objects.towerhead.towerheadflags.TowerHeadFlags;
 
 public class MotivatorTowerHeadFlags extends TowerHeadFlags {
     public MotivatorTowerHeadFlags(TowerBase.TowerUpgradeStage subType) {

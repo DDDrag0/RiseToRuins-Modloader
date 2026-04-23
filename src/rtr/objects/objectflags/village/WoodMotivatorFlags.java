@@ -10,25 +10,25 @@ import rtr.objects.towerhead.TowerBase;
 import rtr.resources.ResourceModule;
 import rtr.utilities.OrderedPair;
 
-public class CrystalMotivatorFlags extends ObjectFlags {
-    public CrystalMotivatorFlags(MapTilesLoader.TileSet currentType, ObjectBase.ObjectSubType subType) {
+public class WoodMotivatorFlags extends ObjectFlags {
+    public WoodMotivatorFlags(MapTilesLoader.TileSet currentType, ObjectBase.ObjectSubType subType) {
         super(currentType, subType);
     }
 
     @Override
     protected void configBasics() {
-        this.baseType = MapTilesLoader.TileSet.CRYSTAL_MOTIVATOR;
+        this.baseType = MapTilesLoader.TileSet.WOOD_MOTIVATOR;
         this.width = 2;
         this.height = 2;
-        String systemName = "crystalMotivator";
-        this.baseName = Text.getText("object.building." + systemName + ".name");
-        this.name = Text.getText("object.building." + systemName + ".name");
-        this.description = Text.getText("object.building." + systemName + ".description");
+        String systemName = "woodMotivator";
+        this.baseName = Text.getText("Wood Motivator");
+        this.name = Text.getText("Wood Motivator");
+        this.description = Text.getText("Motivates wood tiles");
         this.resourceBaseValues.put(ResourceModule.ResourceType.ROCK, 4);
         this.resourceBaseValues.put(ResourceModule.ResourceType.CUT_STONE, 24);
         this.resourceBaseValues.put(ResourceModule.ResourceType.CRYSTAL, 8);
         this.requiredSupportBuildings.add(new MapTilesLoader.TileSet[]{MapTilesLoader.TileSet.ESSENCE_COLLECTOR});
-        this.recommendedSupportBuildings.add(new MapTilesLoader.TileSet[]{MapTilesLoader.TileSet.CRYSTAL_HARVESTRY});
+        this.recommendedSupportBuildings.add(new MapTilesLoader.TileSet[]{MapTilesLoader.TileSet.LUMBER_SHACK});
         this.allowDismantle = true;
         this.allowPause = true;
     }

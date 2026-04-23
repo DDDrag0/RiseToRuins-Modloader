@@ -349,6 +349,21 @@ extends PlayStateGUIPanelBase {
     private GUIPanelButton panelGenerateCloud;
     private MissileModule.MissileType missileType = MissileModule.MissileType.BASIC_ARROW;
 
+    //Questo è il bottone del menù quadrato delle categorie, quelle come buildings e strade ecc...
+    private GUISquarePanelButton modTab;
+
+    //@@Inizio_Dichiarazione_Buttons@@
+
+    //Questo è il bottone per le categorie delle mod, utile per distinguere le varie mod che aggiungono strutture, updatable
+    private GUIPanelButton panelCategoryMod_1;
+
+    //Questo è il bottone per le strutture aggiunte, updatable
+    private GUIPanelButton panelModStructure_1_1;
+    private GUIPanelButton panelModStructure_1_2;
+    private GUIPanelButton panelModStructure_1_3;
+
+    //@@Fine_Dichiarazione_Buttons@@
+
     public RightPanel(PlayStateGUIController controller, PlayStateGUIData guiData, Graphics g, GameContainer gc, Rectangle mouse) throws SlickException {
         super(controller, guiData, g, gc, mouse);
         this.mask = new Rectangle(0.0f, 0.0f, 190.0f, 530.0f);
@@ -954,6 +969,29 @@ extends PlayStateGUIPanelBase {
         this.guiButtons.add(this.panelFireMissile);
         this.panelGenerateCloud = new GUIPanelButton("panelGenerateCloud", 1, "generateCloud", Text.getText("mapEditorPlayRightPanel.button.miscellaneous.generateCloud"), false);
         this.guiButtons.add(this.panelGenerateCloud);
+    //Crea gli effettivi button
+
+        //Qui quello della categoria generale
+        this.modTab = new GUISquarePanelButton("modTab", 0, "mod");
+        this.modTab.setToolTip(Text.getText("Mod Structures"));
+        this.guiButtons.add(this.modTab);
+
+        //@@Inizio_UpdatePreRender_Buttons@@
+
+        //Qui quello della categoria specifica per mod, updatabile
+        this.panelCategoryMod_1 = new GUIPanelButton("panelCategoryMod_1", 1, "modlongpanel", Text.getText("More Motivation"), true);
+        this.guiButtons.add(this.panelCategoryMod_1);
+
+        //Qui quello delle strutture aggiuntive, updatabile
+        this.panelModStructure_1_1 = new GUIPanelButton("panelModStructure_1_1", 1, "modlongpanel", Text.getText("Wood Motivator"), false);
+        this.guiButtons.add(this.panelModStructure_1_1);
+        this.panelModStructure_1_2 = new GUIPanelButton("panelModStructure_1_2", 1, "modlongpanel", Text.getText("Rock Motivator"), false);
+        this.guiButtons.add(this.panelModStructure_1_2);
+        this.panelModStructure_1_3 = new GUIPanelButton("panelModStructure_1_3", 1, "modlongpanel", Text.getText("Vegetable Motivator"), false);
+        this.guiButtons.add(this.panelModStructure_1_3);
+
+        //@@Fine_UpdatePreRender_Buttons@@
+
     }
 
     public void render(boolean debug) throws SlickException {
@@ -998,6 +1036,11 @@ extends PlayStateGUIPanelBase {
             this.roadsAndDiggingTab.render(this.g, this.mouse, this.x - 46, this.y + 28 + yShift, false, debug);
         }
         yShift += this.roadsAndDiggingTab.getHeight();
+
+        //Qui il render del quadrato per selezionare la categoria delle strutture moddate
+        this.modTab.render(this.g, this.mouse, this.x - 46, this.y + 28 + yShift, false, debug);
+        yShift += this.modTab.getHeight();
+
         if (this.save.getActiveRegionalSave().getGameMode() == GameModeTemplateBase.GameMode.SANDBOX) {
             this.tilesTab.render(this.g, this.mouse, this.x - 46, this.y + 28 + yShift, false, debug);
             this.sandboxToolsTab.render(this.g, this.mouse, this.x - 46, this.y + 28 + (yShift += this.tilesTab.getHeight()), false, debug);
@@ -1707,6 +1750,30 @@ extends PlayStateGUIPanelBase {
             this.panelGenerateCloud.render(this.g, this.mouse, this.x, this.y + 28 + (yShift += this.panelFireMissile.getHeight()), false, debug);
             yShift += this.panelGenerateCloud.getHeight();
         }
+
+        //@@Inizio_Creazione_Pannelli@@
+
+        if (this.panelCurrentPage == GUIEnums.GUIPanelPage.RIGHT_CATEGORY_MOD_1) {
+            this.lastPage = null;
+            this.nextPage = null;
+            this.backPage = null;
+            this.panelCategoryMod_1.render(this.g, this.mouse, this.x, this.y + 28 + yShift, false, debug);
+            yShift += this.panelCategoryMod_1.getHeight();
+            yShift = this.renderBlankPanels(5, this.x, this.y, yShift, this.g);
+        }
+        if (this.panelCurrentPage == GUIEnums.GUIPanelPage.RIGHT_MOD_1_1) {
+            this.lastPage = null;
+            this.nextPage = null;
+            this.backPage = GUIEnums.GUIPanelPage.RIGHT_CATEGORY_MOD_1;
+            this.panelModStructure_1_1.render(this.g, this.mouse, this.x, this.y + 28 + yShift, this.object.objectCount(MapTilesLoader.TileSet.WOOD_MOTIVATOR, true), false, debug);
+            this.panelModStructure_1_2.render(this.g, this.mouse, this.x, this.y + 28 + (yShift += this.panelModStructure_1_1.getHeight()), this.object.objectCount(MapTilesLoader.TileSet.ROCK_MOTIVATOR, true), false, debug);
+            this.panelModStructure_1_3.render(this.g, this.mouse, this.x, this.y + 28 + (yShift += this.panelModStructure_1_2.getHeight()), this.object.objectCount(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR, true), false, debug);
+            yShift += this.panelCullisGate.getHeight();
+            yShift = this.renderBlankPanels(4, this.x, this.y, yShift, this.g);
+        }
+
+        //@@Fine_Creazione_Pannelli@@
+
         if (this.backPage == null) {
             this.pageBackBottom.render(this.g, this.mouse, this.x, this.y + yShift + 28, true, debug);
         } else {
@@ -1772,7 +1839,11 @@ extends PlayStateGUIPanelBase {
 
     @Override
     public void update() {
-        if (this.panelCurrentPage != GUIEnums.GUIPanelPage.RIGHT_CATEGORY_ROADS_AND_DIGGING && !this.panelCurrentPage.toString().contains("RIGHT_CATEGORY_TILES") && this.panelCurrentPage != GUIEnums.GUIPanelPage.RIGHT_CATEGORY_SANDBOX_TOOLS) {
+        if (this.panelCurrentPage != GUIEnums.GUIPanelPage.RIGHT_CATEGORY_ROADS_AND_DIGGING &&
+                !this.panelCurrentPage.toString().contains("RIGHT_CATEGORY_MOD") &&
+                !this.panelCurrentPage.toString().contains("RIGHT_MOD") &&
+                !this.panelCurrentPage.toString().contains("RIGHT_CATEGORY_TILES") &&
+                this.panelCurrentPage != GUIEnums.GUIPanelPage.RIGHT_CATEGORY_SANDBOX_TOOLS) {
             this.buildTab.select();
         } else {
             this.buildTab.deselect();
@@ -1793,6 +1864,13 @@ extends PlayStateGUIPanelBase {
             this.sandboxToolsTab.select();
         } else {
             this.sandboxToolsTab.deselect();
+        }
+
+        if (this.panelCurrentPage.toString().contains("RIGHT_CATEGORY_MOD") ||
+                this.panelCurrentPage.toString().contains("RIGHT_MOD")) {
+            this.modTab.select();
+        } else {
+            this.modTab.deselect();
         }
     }
 

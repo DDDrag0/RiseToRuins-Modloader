@@ -109,6 +109,8 @@ import rtr.objects.objectflags.walls.WoodFenceFlags;
 import rtr.objects.objectflags.walls.WoodFenceGateNSFlags;
 import rtr.objects.objectflags.walls.WoodFenceGateWEFlags;
 
+import rtr.objects.objectflags.village.*;
+
 public class ObjectFlagFactory {
     private HashMap<MapTilesLoader.TileSet, HashMap<ObjectBase.ObjectSubType, ObjectFlags>> objectFlags = new HashMap();
 
@@ -436,6 +438,17 @@ public class ObjectFlagFactory {
             this.objectFlags.get((Object)MapTilesLoader.TileSet.WOOD_FENCE).put((ObjectBase.ObjectSubType)subType, new WoodFenceFlags(MapTilesLoader.TileSet.WOOD_FENCE, (ObjectBase.ObjectSubType)subType));
             this.objectFlags.get((Object)MapTilesLoader.TileSet.WOOD_FENCE_GATE_NS).put((ObjectBase.ObjectSubType)subType, new WoodFenceGateNSFlags(MapTilesLoader.TileSet.WOOD_FENCE_GATE_NS, (ObjectBase.ObjectSubType)subType));
             this.objectFlags.get((Object)MapTilesLoader.TileSet.WOOD_FENCE_GATE_WE).put((ObjectBase.ObjectSubType)subType, new WoodFenceGateWEFlags(MapTilesLoader.TileSet.WOOD_FENCE_GATE_WE, (ObjectBase.ObjectSubType)subType));
+
+            //qui vanno le aggiunte per i costruttori delle strutture
+
+            //@@Inizio_Aggiunta_Costruttori_Flags
+
+            this.objectFlags.get((Object)MapTilesLoader.TileSet.WOOD_MOTIVATOR).put((ObjectBase.ObjectSubType)subType, new WoodMotivatorFlags(MapTilesLoader.TileSet.WOOD_MOTIVATOR, (ObjectBase.ObjectSubType)subType));
+            this.objectFlags.get((Object)MapTilesLoader.TileSet.ROCK_MOTIVATOR).put((ObjectBase.ObjectSubType)subType, new RockMotivatorFlags(MapTilesLoader.TileSet.ROCK_MOTIVATOR, (ObjectBase.ObjectSubType)subType));
+            this.objectFlags.get((Object)MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR).put((ObjectBase.ObjectSubType)subType, new VegetableMotivatorFlags(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR, (ObjectBase.ObjectSubType)subType));
+
+            //@@Fine_Aggiunta_Costruttori_Flags
+
             ++n2;
         }
         enumArray = MapTilesLoader.TileSet.values();

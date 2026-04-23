@@ -3670,6 +3670,39 @@ extends StateBase {
             this.gui.select(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelGenerateCloud");
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
+        //qui vanno aggiunti tutti i listener dei vari tasti nuovi
+
+        // @@Inizio_Modifiche_Listener
+
+        if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "modTab")) {
+            this.gui.getRightPanel().setPanelPage(GUIEnums.GUIPanelPage.RIGHT_CATEGORY_MOD_1);
+            if (this.gui.getRightPanel().isPanelHidden()) {
+                this.gui.getRightPanel().togglePanelHidden();
+            }
+            sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
+        }
+        if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelCategoryMod1")) {
+            this.gui.getRightPanel().setPanelPage(GUIEnums.GUIPanelPage.RIGHT_MOD_1_1);
+            sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
+        }
+        if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_1")) {
+            this.gui.getGUIData().setPlacementObject(MapTilesLoader.TileSet.WOOD_MOTIVATOR, ObjectBase.ObjectSubType.CONSTRUCTION, ObjectBase.ObjectSubType.BUILT);
+            this.gui.select(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_1");
+            sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
+        }
+        if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_2")) {
+            this.gui.getGUIData().setPlacementObject(MapTilesLoader.TileSet.ROCK_MOTIVATOR, ObjectBase.ObjectSubType.CONSTRUCTION, ObjectBase.ObjectSubType.BUILT);
+            this.gui.select(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_2");
+            sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
+        }
+        if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_3")) {
+            this.gui.getGUIData().setPlacementObject(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR, ObjectBase.ObjectSubType.CONSTRUCTION, ObjectBase.ObjectSubType.BUILT);
+            this.gui.select(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_3");
+            sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
+        }
+
+        // @@Fine_Modifiche_Listener
+
     }
 
     private void controlsMousePressedHarvestAndTerrainButtons(boolean rightClick) throws SlickException {

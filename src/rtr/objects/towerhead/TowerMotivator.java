@@ -1,6 +1,9 @@
 package rtr.objects.towerhead;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.newdawn.slick.SlickException;
 import rtr.map.MapTilesLoader;
 import rtr.map.RegrowTile;
@@ -19,6 +22,14 @@ public class TowerMotivator extends TowerBase {
 
     public TowerMotivator(YMLDataMap dataMap, ObjectBase t) throws SlickException {
         super(dataMap, t);
+    }
+
+    private static final Map<MapTilesLoader.TileSet, ResourceModule.ResourceType> MOTIVATOR_TARGET_MAP = new HashMap<>();
+    static {
+        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.CRYSTAL_MOTIVATOR, ResourceModule.ResourceType.CRYSTAL);
+        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.WOOD_MOTIVATOR, ResourceModule.ResourceType.WOOD);
+        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.ROCK_MOTIVATOR, ResourceModule.ResourceType.ROCK);
+        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR, ResourceModule.ResourceType.RAW_VEGETABLE);
     }
 
     @Override
@@ -65,6 +76,16 @@ public class TowerMotivator extends TowerBase {
 
     @Override
     protected void findTargetCoordinate() {
+
+        // Ottieni il tipo di edificio (TileSet) dell'oggetto che contiene la torre
+        MapTilesLoader.TileSet buildingType = this.tower.getObjectFlags().getCurrentType();
+        ResourceModule.ResourceType targetResourceType = MOTIVATOR_TARGET_MAP.get(buildingType);
+
+        // Se il tipo non è tra quelli mappati, esci (o logga un errore)
+        if (targetResourceType == null) {
+            return;
+        }
+
         OrderedPair randomTile;
         ArrayList<OrderedPair> nearbyCoordinates = Utilities.getAllCoordinatesWithin(this.towerX, this.towerY, this.towerFlags.getDistance());
         ArrayList<OrderedPair> validMotivatedTileCoordinates = new ArrayList<OrderedPair>();
@@ -78,7 +99,7 @@ public class TowerMotivator extends TowerBase {
             MapTilesLoader.TileSet tileType = regrowTile.getTileType();
             int tileID = this.map.getMapTileLoader().getTileSetGID(tileType);
             ResourceModule.ResourceType tileResourceType = this.map.getMapTileLoader().getTileResourceType(tileID);
-            if (tileResourceType != ResourceModule.ResourceType.CRYSTAL || (hValue = (int)Math.sqrt((dx = this.towerX - tile.getX()) * dx + (dy = this.towerY - tile.getY()) * dy)) >= this.towerFlags.getDistance()) continue;
+            if (tileResourceType != targetResourceType || (hValue = (int)Math.sqrt((dx = this.towerX - tile.getX()) * dx + (dy = this.towerY - tile.getY()) * dy)) >= this.towerFlags.getDistance()) continue;
             if (regrowTile.isMotivated()) {
                 validMotivatedTileCoordinates.add(tile);
                 continue;

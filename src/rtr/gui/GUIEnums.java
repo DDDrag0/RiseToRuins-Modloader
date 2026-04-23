@@ -77,7 +77,16 @@ public class GUIEnums {
         STATS_MONSTERS,
         STATS_RESOURCES,
         STATS_MAGIC_AND_ENERGY,
-        STATS_OTHER;
+        STATS_OTHER,
+
+        //Qui vengono aggiunti i nuovi enums
+
+        //@@Inizio_Modifiche_Enum@@
+
+        RIGHT_CATEGORY_MOD_1,
+        RIGHT_MOD_1_1,
+
+        //@@Fine_Modifiche_Enum@@
 
     }
 
