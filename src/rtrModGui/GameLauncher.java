@@ -2,7 +2,6 @@ package rtrModGui;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GameLauncher {
 
@@ -39,7 +38,7 @@ public class GameLauncher {
             }
         }
 
-        String classpath = classpathEntries.stream().collect(Collectors.joining(File.pathSeparator));
+        String classpath = String.join(File.pathSeparator, classpathEntries);
 
         // 3. Set the natives (environment variable)
         String nativePath = getNativePath(currentDir);
@@ -58,18 +57,7 @@ public class GameLauncher {
         callback.onGameStarting();
 
         // Reads the process output and sends it to the callback (optional)
-        Thread outputReader = new Thread(() -> {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    callback.onGameOutput(line);
-                }
-            } catch (IOException e) {
-                // The process may already be finished; ignore it
-                if (process.isAlive()) callback.onGameError(e);
-            }
-        });
-        outputReader.setDaemon(true);
+        Thread outputReader = createOutputReaderThread (callback, process);
         outputReader.start();
 
         // Waits for the process to finish in a separate thread
@@ -84,6 +72,22 @@ public class GameLauncher {
         waitForThread.start();
 
         return process;
+    }
+
+    private static Thread createOutputReaderThread(GameLauncherCallback callback, Process process) {
+        Thread outputReader = new Thread(() -> {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    callback.onGameOutput(line);
+                }
+            } catch (IOException e) {
+                // The process may already be finished; ignore it
+                if (process.isAlive()) callback.onGameError(e);
+            }
+        });
+        outputReader.setDaemon(true);
+        return outputReader;
     }
 
     private static String getNativePath(File currentDir) {
