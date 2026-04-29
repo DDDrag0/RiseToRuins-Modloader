@@ -17,10 +17,9 @@ public class WoodMotivatorFlags extends ObjectFlags {
 
     @Override
     protected void configBasics() {
-        this.baseType = MapTilesLoader.TileSet.WOOD_MOTIVATOR;
+        this.baseType = MapTilesLoader.TileSet.MOD_STRUCTURE_1;
         this.width = 2;
         this.height = 2;
-        String systemName = "woodMotivator";
         this.baseName = Text.getText("Wood Motivator");
         this.name = Text.getText("Wood Motivator");
         this.description = Text.getText("Motivates wood tiles");

@@ -1765,10 +1765,10 @@ extends PlayStateGUIPanelBase {
             this.lastPage = null;
             this.nextPage = null;
             this.backPage = GUIEnums.GUIPanelPage.RIGHT_CATEGORY_MOD_1;
-            this.panelModStructure_1_1.render(this.g, this.mouse, this.x, this.y + 28 + yShift, this.object.objectCount(MapTilesLoader.TileSet.WOOD_MOTIVATOR, true), false, debug);
-            this.panelModStructure_1_2.render(this.g, this.mouse, this.x, this.y + 28 + (yShift += this.panelModStructure_1_1.getHeight()), this.object.objectCount(MapTilesLoader.TileSet.ROCK_MOTIVATOR, true), false, debug);
-            this.panelModStructure_1_3.render(this.g, this.mouse, this.x, this.y + 28 + (yShift += this.panelModStructure_1_2.getHeight()), this.object.objectCount(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR, true), false, debug);
-            yShift += this.panelCullisGate.getHeight();
+            this.panelModStructure_1_1.render(this.g, this.mouse, this.x, this.y + 28 + yShift, this.object.objectCount(MapTilesLoader.TileSet.MOD_STRUCTURE_1, true), false, debug);
+            this.panelModStructure_1_2.render(this.g, this.mouse, this.x, this.y + 28 + (yShift += this.panelModStructure_1_1.getHeight()), this.object.objectCount(MapTilesLoader.TileSet.MOD_STRUCTURE_2, true), false, debug);
+            this.panelModStructure_1_3.render(this.g, this.mouse, this.x, this.y + 28 + (yShift += this.panelModStructure_1_2.getHeight()), this.object.objectCount(MapTilesLoader.TileSet.MOD_STRUCTURE_3, true), false, debug);
+            yShift += this.panelModStructure_1_3.getHeight();
             yShift = this.renderBlankPanels(4, this.x, this.y, yShift, this.g);
         }
 

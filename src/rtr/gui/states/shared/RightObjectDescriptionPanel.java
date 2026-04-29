@@ -643,13 +643,13 @@ extends SharedGUIPanelBase {
             //@@Inizio_Creazione_Pannelli@@
 
             else if (intersectingButton.equals("panelModStructure_1_1")) {
-                this.setHighlightedObject(MapTilesLoader.TileSet.WOOD_MOTIVATOR);
+                this.setHighlightedObject(MapTilesLoader.TileSet.MOD_STRUCTURE_1);
             }
             else if (intersectingButton.equals("panelModStructure_1_2")) {
-                this.setHighlightedObject(MapTilesLoader.TileSet.ROCK_MOTIVATOR);
+                this.setHighlightedObject(MapTilesLoader.TileSet.MOD_STRUCTURE_2);
             }
             else if (intersectingButton.equals("panelModStructure_1_3")) {
-                this.setHighlightedObject(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR);
+                this.setHighlightedObject(MapTilesLoader.TileSet.MOD_STRUCTURE_3);
             }
 
             //@@Fine_Creazione_Pannelli@@

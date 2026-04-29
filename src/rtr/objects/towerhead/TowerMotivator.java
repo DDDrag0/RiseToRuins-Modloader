@@ -8,7 +8,6 @@ import org.newdawn.slick.SlickException;
 import rtr.map.MapTilesLoader;
 import rtr.map.RegrowTile;
 import rtr.objects.ObjectBase;
-import rtr.objects.towerhead.TowerBase;
 import rtr.resources.ResourceModule;
 import rtr.save.YMLDataMap;
 import rtr.utilities.OrderedPair;
@@ -27,9 +26,11 @@ public class TowerMotivator extends TowerBase {
     private static final Map<MapTilesLoader.TileSet, ResourceModule.ResourceType> MOTIVATOR_TARGET_MAP = new HashMap<>();
     static {
         MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.CRYSTAL_MOTIVATOR, ResourceModule.ResourceType.CRYSTAL);
-        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.WOOD_MOTIVATOR, ResourceModule.ResourceType.WOOD);
-        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.ROCK_MOTIVATOR, ResourceModule.ResourceType.ROCK);
-        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR, ResourceModule.ResourceType.RAW_VEGETABLE);
+        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.MOD_STRUCTURE_1, ResourceModule.ResourceType.WOOD);
+        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.MOD_STRUCTURE_2, ResourceModule.ResourceType.ROCK);
+        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.MOD_STRUCTURE_2_1, ResourceModule.ResourceType.ROCK);
+        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.MOD_STRUCTURE_2_2, ResourceModule.ResourceType.ROCK);
+        MOTIVATOR_TARGET_MAP.put(MapTilesLoader.TileSet.MOD_STRUCTURE_3, ResourceModule.ResourceType.RAW_VEGETABLE);
     }
 
     @Override

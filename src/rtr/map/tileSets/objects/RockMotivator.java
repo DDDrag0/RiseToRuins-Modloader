@@ -6,8 +6,8 @@ import rtr.map.MapTilesLoader;
 import rtr.map.tileSets.TileSetBase;
 
 public class RockMotivator extends TileSetBase {
-    public RockMotivator(int tGID) {
-        super(tGID, MapTilesLoader.TileSetType.OBJECT);
+    public RockMotivator(int tGID, int uP) {
+        super(tGID, uP, MapTilesLoader.TileSetType.OBJECT);
     }
 
     @Override
@@ -19,6 +19,22 @@ public class RockMotivator extends TileSetBase {
         this.fileName = "rockMotivator"; //nome del file png dal quale prende l'immagine la torre
         this.name = Text.getText("Rock Motivator");
         this.description = Text.getText("Motivates rook tiles");
+        switch (this.upgradePhase) {
+            case 0: {
+                this.name = Text.getText("Rock Motivator 1");
+                break;
+            }
+            case 1: {
+                this.name = Text.getText("Rock Motivator 2");
+                //this.fileName = this.fileName + "Upgrade2";
+                break;
+            }
+            case 2: {
+                this.name = Text.getText("Rock Motivator 3");
+                //this.fileName = this.fileName + "Upgrade3";
+                break;
+            }
+        }
     }
 }
 

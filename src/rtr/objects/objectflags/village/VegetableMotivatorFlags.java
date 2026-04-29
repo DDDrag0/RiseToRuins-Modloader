@@ -17,10 +17,9 @@ public class VegetableMotivatorFlags extends ObjectFlags {
 
     @Override
     protected void configBasics() {
-        this.baseType = MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR;
+        this.baseType = MapTilesLoader.TileSet.MOD_STRUCTURE_3;
         this.width = 2;
         this.height = 2;
-        String systemName = "vegetableMotivator";
         this.baseName = Text.getText("Vegetable Motivator");
         this.name = Text.getText("Vegetable Motivator");
         this.description = Text.getText("Motivates vegetable tiles");

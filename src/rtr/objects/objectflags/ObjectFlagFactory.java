@@ -4,7 +4,6 @@ import java.util.HashMap;
 import org.newdawn.slick.SlickException;
 import rtr.map.MapTilesLoader;
 import rtr.objects.ObjectBase;
-import rtr.objects.objectflags.ObjectFlags;
 import rtr.objects.objectflags.corruption.CorruptedFireBowTowerFlags;
 import rtr.objects.objectflags.corruption.CorruptedFirePhantomDartTowerFlags;
 import rtr.objects.objectflags.corruption.CorruptedFirePitFlags;
@@ -443,9 +442,11 @@ public class ObjectFlagFactory {
 
             //@@Inizio_Aggiunta_Costruttori_Flags
 
-            this.objectFlags.get((Object)MapTilesLoader.TileSet.WOOD_MOTIVATOR).put((ObjectBase.ObjectSubType)subType, new WoodMotivatorFlags(MapTilesLoader.TileSet.WOOD_MOTIVATOR, (ObjectBase.ObjectSubType)subType));
-            this.objectFlags.get((Object)MapTilesLoader.TileSet.ROCK_MOTIVATOR).put((ObjectBase.ObjectSubType)subType, new RockMotivatorFlags(MapTilesLoader.TileSet.ROCK_MOTIVATOR, (ObjectBase.ObjectSubType)subType));
-            this.objectFlags.get((Object)MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR).put((ObjectBase.ObjectSubType)subType, new VegetableMotivatorFlags(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR, (ObjectBase.ObjectSubType)subType));
+            this.objectFlags.get((Object)MapTilesLoader.TileSet.MOD_STRUCTURE_1).put((ObjectBase.ObjectSubType)subType, new WoodMotivatorFlags(MapTilesLoader.TileSet.MOD_STRUCTURE_1, (ObjectBase.ObjectSubType)subType));
+            this.objectFlags.get((Object)MapTilesLoader.TileSet.MOD_STRUCTURE_2).put((ObjectBase.ObjectSubType)subType, new RockMotivatorFlags(MapTilesLoader.TileSet.MOD_STRUCTURE_2, (ObjectBase.ObjectSubType)subType));
+            this.objectFlags.get((Object)MapTilesLoader.TileSet.MOD_STRUCTURE_2_1).put((ObjectBase.ObjectSubType)subType, new RockMotivatorFlags(MapTilesLoader.TileSet.MOD_STRUCTURE_2_1, (ObjectBase.ObjectSubType)subType));
+            this.objectFlags.get((Object)MapTilesLoader.TileSet.MOD_STRUCTURE_2_2).put((ObjectBase.ObjectSubType)subType, new RockMotivatorFlags(MapTilesLoader.TileSet.MOD_STRUCTURE_2_2, (ObjectBase.ObjectSubType)subType));
+            this.objectFlags.get((Object)MapTilesLoader.TileSet.MOD_STRUCTURE_3).put((ObjectBase.ObjectSubType)subType, new VegetableMotivatorFlags(MapTilesLoader.TileSet.MOD_STRUCTURE_3, (ObjectBase.ObjectSubType)subType));
 
             //@@Fine_Aggiunta_Costruttori_Flags
 

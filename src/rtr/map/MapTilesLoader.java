@@ -4,7 +4,6 @@ import java.util.*;
 import rtr.resources.*;
 import org.newdawn.slick.*;
 import rtr.utilities.*;
-import rtr.map.tileSets.*;
 import rtr.*;
 import r2d.image.*;
 import java.io.*;
@@ -769,9 +768,11 @@ public class MapTilesLoader
 
         //@@Inizio_Aggiunta_Enums_Strutture
 
-        WOOD_MOTIVATOR(new WoodMotivator(MapTilesLoader.calcObjectTileID(93, 0))),
-        ROCK_MOTIVATOR(new RockMotivator(MapTilesLoader.calcObjectTileID(94, 0))),
-        VEGETABLE_MOTIVATOR(new VegetableMotivator(MapTilesLoader.calcObjectTileID(95, 0))),
+        MOD_STRUCTURE_1(new WoodMotivator(MapTilesLoader.calcObjectTileID(93, 0))),
+        MOD_STRUCTURE_2(new RockMotivator(MapTilesLoader.calcObjectTileID(94, 0),0)),
+        MOD_STRUCTURE_2_1(new RockMotivator(MapTilesLoader.calcObjectTileID(94, 1),1)),
+        MOD_STRUCTURE_2_2(new RockMotivator(MapTilesLoader.calcObjectTileID(94, 2),2)),
+        MOD_STRUCTURE_3(new VegetableMotivator(MapTilesLoader.calcObjectTileID(95, 0))),
 
         //@@Fine_Aggiunta_Enums_Strutture
 

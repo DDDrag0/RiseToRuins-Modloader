@@ -40,7 +40,6 @@ import rtr.objects.ObjectBase;
 import rtr.particles.ParticleModule;
 import rtr.resources.ResourceModule;
 import rtr.road.RoadModule;
-import rtr.states.StateBase;
 import rtr.system.Game;
 import rtr.system.ScaleControl;
 import rtr.system.gamemodetemplates.GameModeTemplateBase;
@@ -3680,29 +3679,29 @@ extends StateBase {
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
 
-        // @@Inizio_Modifiche_Listener
+        // @@Inizio_Modifiche_Listener@@
 
         if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelCategoryMod_1")) {
             this.gui.getRightPanel().setPanelPage(GUIEnums.GUIPanelPage.RIGHT_MOD_1_1);
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
         if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_1")) {
-            this.gui.getGUIData().setPlacementObject(MapTilesLoader.TileSet.WOOD_MOTIVATOR, ObjectBase.ObjectSubType.CONSTRUCTION, ObjectBase.ObjectSubType.BUILT);
+            this.gui.getGUIData().setPlacementObject(MapTilesLoader.TileSet.MOD_STRUCTURE_1, ObjectBase.ObjectSubType.CONSTRUCTION, ObjectBase.ObjectSubType.BUILT);
             this.gui.select(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_1");
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
         if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_2")) {
-            this.gui.getGUIData().setPlacementObject(MapTilesLoader.TileSet.ROCK_MOTIVATOR, ObjectBase.ObjectSubType.CONSTRUCTION, ObjectBase.ObjectSubType.BUILT);
+            this.gui.getGUIData().setPlacementObject(MapTilesLoader.TileSet.MOD_STRUCTURE_2, ObjectBase.ObjectSubType.CONSTRUCTION, ObjectBase.ObjectSubType.BUILT);
             this.gui.select(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_2");
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
         if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_3")) {
-            this.gui.getGUIData().setPlacementObject(MapTilesLoader.TileSet.VEGETABLE_MOTIVATOR, ObjectBase.ObjectSubType.CONSTRUCTION, ObjectBase.ObjectSubType.BUILT);
+            this.gui.getGUIData().setPlacementObject(MapTilesLoader.TileSet.MOD_STRUCTURE_3, ObjectBase.ObjectSubType.CONSTRUCTION, ObjectBase.ObjectSubType.BUILT);
             this.gui.select(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelModStructure_1_3");
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
 
-        // @@Fine_Modifiche_Listener
+        // @@Fine_Modifiche_Listener@@
 
     }
 
