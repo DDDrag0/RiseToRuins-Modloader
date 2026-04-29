@@ -1184,7 +1184,7 @@ extends StateBase {
             File settings;
             this.gui.toggleMainMenuPanel();
             try {
-                settings = new File("profiles/settings.properties");
+                settings = new File("moddedProfiles/settings.properties");
                 newProperties = this.gui.getSettingsPanel().getSettingsBaseProperties();
                 out = new FileOutputStream(settings);
                 newProperties.store(out, "settings");
@@ -1195,7 +1195,7 @@ extends StateBase {
                 Console.out("Main Menu failed to save base properties file!", true);
             }
             try {
-                settings = new File("profiles/profile" + Game.getActiveProfile() + "/profileSettings.properties");
+                settings = new File("moddedProfiles/profile" + Game.getActiveProfile() + "/profileSettings.properties");
                 newProperties = this.gui.getSettingsPanel().getSettingsProfileProperties();
                 newProperties.setProperty("twitchChannel", this.gui.getSettingsPanel().getSettingsTwitchChannel());
                 out = new FileOutputStream(settings);
