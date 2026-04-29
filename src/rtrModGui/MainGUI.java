@@ -6,6 +6,7 @@ import java.awt.datatransfer.*;
 import java.awt.dnd.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -92,6 +93,19 @@ public class MainGUI extends JFrame {
         modMenu.add(disableItem);
         modMenu.addSeparator();
         modMenu.add(deleteItem);
+
+        modMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent e) {
+                ModInfo selected = modList.getSelectedValue();
+                boolean isCore = (selected != null && selected.isCore());
+                enableItem.setEnabled(!isCore);
+                disableItem.setEnabled(!isCore);
+                deleteItem.setEnabled(!isCore);
+            }
+            @Override public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent e) {}
+            @Override public void popupMenuCanceled(javax.swing.event.PopupMenuEvent e) {}
+        });
         return modMenu;
     }
 
@@ -141,9 +155,14 @@ public class MainGUI extends JFrame {
 
     private void refreshMods() {
         List<ModInfo> mods = ModScanner.scanMods();
+        mods.sort(Comparator.comparing(ModInfo::isCore).reversed()
+                .thenComparing(ModInfo::getName, String.CASE_INSENSITIVE_ORDER));
         ModStateManager.loadState(mods);
+        for(ModInfo mod : mods)
+            if(mod.isCore())
+                mod.setEnabled(true);   // Must be always on true
         modListModel.clear();
-        for (ModInfo mod : mods) modListModel.addElement(mod);
+        for(ModInfo mod : mods) modListModel.addElement(mod);
         log("🔄 Found " + mods.size() + " mod(s)");
         saveModsState(); // Remove stale entries from state file
     }
@@ -155,13 +174,24 @@ public class MainGUI extends JFrame {
     }
 
     private void toggleSelectedMods(boolean enable) {
-        for (ModInfo mod : modList.getSelectedValuesList()) mod.setEnabled(enable);
+        for (ModInfo mod : modList.getSelectedValuesList()) {
+            if (mod.isCore()) {
+                log("⚠️ Cannot " + (enable ? "enable" : "disable") + " core mod: " + mod.getName());
+                continue;
+            }
+            mod.setEnabled(enable);
+        }
         modList.repaint();
         saveModsState();
     }
 
     private void toggleAllMods(boolean enable) {
-        for (int i = 0; i < modListModel.size(); i++) modListModel.get(i).setEnabled(enable);
+        for (int i = 0; i < modListModel.size(); i++) {
+            ModInfo mod = modListModel.get(i);
+            if (!mod.isCore()) {
+                mod.setEnabled(enable);
+            }
+        }
         modList.repaint();
         saveModsState();
     }
@@ -170,6 +200,10 @@ public class MainGUI extends JFrame {
         int confirm = JOptionPane.showConfirmDialog(this, "Delete selected mods?", "Confirm", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
             for (ModInfo mod : modList.getSelectedValuesList()) {
+                if (mod.isCore()) {
+                    log("⚠️ Cannot delete core mod: " + mod.getName());
+                    continue;
+                }
                 File modFolder = new File(mod.getPath());
                 ModScanner.deleteDirectory(modFolder);
                 log("🗑️ Deleted: " + mod.getName());

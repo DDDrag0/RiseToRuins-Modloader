@@ -9,24 +9,34 @@ import java.util.*;
 
 public class ModScanner {
     private static final String MODS_FOLDER = "mods";
+    private static final String CORE_MODS_FOLDER = MODS_FOLDER + File.separator + "coreMods";
 
     public static List<ModInfo> scanMods() {
         List<ModInfo> mods = new ArrayList<>();
-        File modsFolder = new File(MODS_FOLDER);
-        if (!modsFolder.exists()) {
-            if (!modsFolder.mkdir()) {
-                ModLogger.error("Failed to create mods folder. Please check permissions.");
-                return mods;
+        scanFolder(MODS_FOLDER, mods, false);
+        scanFolder(CORE_MODS_FOLDER, mods, true);
+        return mods;
+    }
+
+    private static void scanFolder(String folderPath, List<ModInfo> mods, boolean isCore) {
+        File folder = new File(folderPath);
+        if (!folder.exists()) {
+            if (!folder.mkdirs()) {
+                ModLogger.error("Failed to create folder: " + folderPath);
             }
+            return;
         }
-        File[] modFolders = modsFolder.listFiles(File::isDirectory);
-        if (modFolders == null) return mods;
-        for (File modFolder : modFolders) {
+        File[] subFolders = folder.listFiles(File::isDirectory);
+        if (subFolders == null) return;
+        for (File modFolder : subFolders) {
+            if (!isCore && modFolder.getName().equals("coreMods")) {
+                continue;
+            }
             ModInfo mod = new ModInfo(modFolder.getName(), modFolder.getAbsolutePath());
+            mod.setCore(isCore);
             scanModFolder(modFolder, mod, "");
             mods.add(mod);
         }
-        return mods;
     }
 
     private static void scanModFolder(File folder, ModInfo mod, String packagePath) {

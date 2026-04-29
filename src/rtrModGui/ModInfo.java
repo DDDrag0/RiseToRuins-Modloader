@@ -7,6 +7,7 @@ public class ModInfo {
     private final String path;
     private final List<String> modifiedClasses;
     private boolean enabled;
+    private boolean core;
 
     public ModInfo(String name, String path) {
         this.name = name;
@@ -34,6 +35,15 @@ public class ModInfo {
     public void addClass(String className) {
         modifiedClasses.add(className);
     }
+
+    public boolean isCore() {
+        return core;
+    }
+
+    public void setCore(boolean core) {
+        this.core = core;
+    }
+
 
     public List<String> getModifiedClasses() {
         return modifiedClasses;
