@@ -15,7 +15,7 @@ public class ModScanner {
         File modsFolder = new File(MODS_FOLDER);
         if (!modsFolder.exists()) {
             if (!modsFolder.mkdir()) {
-                System.err.println("❌ Failed to create mods folder. Please check permissions.");
+                ModLogger.error("Failed to create mods folder. Please check permissions.");
                 return mods;
             }
         }
@@ -47,22 +47,20 @@ public class ModScanner {
     public static boolean installMod(File sourceFile) {
         try {
             String fileName = sourceFile.getName().toLowerCase();
-            System.out.println("📦 Installation: " + sourceFile.getName());
+            ModLogger.info("📦 Installation: " + sourceFile.getName());
             if (!fileName.endsWith(".zip")) {
-                System.err.println("❌ Format not supported. Please use a .zip file.");
+                ModLogger.error("Format not supported. Please use a .zip file.");
                 return false;
             }
             boolean success = extractZip(sourceFile);
             if (success) {
-                System.out.println("✅ Mod installed successfully");
+                ModLogger.info("✅ Mod installed successfully");
             } else {
-                System.err.println("❌ Installation failed");
+                ModLogger.error("❌ Installation failed");
             }
             return success;
         } catch (Exception e) {
-            System.err.println("❌ Install error: " + e.getMessage());
-            // For more details in dev:
-            // e.printStackTrace();
+            ModLogger.error("Install error: " + e.getMessage());
             return false;
         }
     }
@@ -72,12 +70,11 @@ public class ModScanner {
         baseName = baseName.substring(0, baseName.length() - 4);
         File modFolder = new File(MODS_FOLDER + "/" + baseName);
         if (modFolder.exists()) {
-            // Should not happen because GUI asks before, but just in case:
-            System.out.println("⚠️ Mod folder already exists: " + baseName + " – adding timestamp");
+            ModLogger.warn("Mod folder already exists: " + baseName + " – adding timestamp");
             modFolder = new File(MODS_FOLDER + "/" + baseName + "_" + System.currentTimeMillis());
         }
         if (!modFolder.mkdirs()) {
-            System.err.println("❌ Failed to create directory: " + modFolder);
+            ModLogger.error("Failed to create directory: " + modFolder);
             return false;
         }
         int fileCount = 0;
@@ -87,11 +84,11 @@ public class ModScanner {
                 File destFile = new File(modFolder, entry.getName());
                 if (entry.isDirectory()) {
                     if (!destFile.mkdirs()) {
-                        System.err.println("⚠️ Could not create directory: " + destFile);
+                        ModLogger.warn("Could not create directory: " + destFile);
                     }
                 } else {
                     if (!destFile.getParentFile().mkdirs() && !destFile.getParentFile().exists()) {
-                        System.err.println("⚠️ Could not create parent directories for: " + destFile);
+                        ModLogger.warn("Could not create parent directories for: " + destFile);
                     }
                     try (FileOutputStream fos = new FileOutputStream(destFile)) {
                         byte[] buffer = new byte[4096];
@@ -102,25 +99,25 @@ public class ModScanner {
                     }
                     fileCount++;
                     if (entry.getName().endsWith(".class")) {
-                        System.out.println("  📄 " + entry.getName());
+                        ModLogger.debug("  📄 " + entry.getName());
                     }
                 }
                 zis.closeEntry();
             }
         }
         if (!validateModStructure(modFolder)) {
-            System.err.println("❌ Invalid mod structure (no .class files). Deleting folder.");
+            ModLogger.error("Invalid mod structure (no .class files). Deleting folder.");
             deleteDirectory(modFolder);
             return false;
         }
-        System.out.println("✅ " + fileCount + " files extracted to " + modFolder.getPath());
+        ModLogger.info("✅ " + fileCount + " files extracted to " + modFolder.getPath());
         return true;
     }
 
     private static boolean validateModStructure(File modFolder) {
         boolean hasClassFile = findAnyClassFile(modFolder);
         if (!hasClassFile) {
-            System.err.println("⚠️ No .class files found in the mod.");
+            ModLogger.warn("No .class files found in the mod.");
             return false;
         }
         return true;
@@ -133,7 +130,6 @@ public class ModScanner {
                 classToMods.computeIfAbsent(cls, k -> new ArrayList<>()).add(mod);
             }
         }
-        // Keep only those with more than one mod
         return classToMods.entrySet().stream()
                 .filter(e -> e.getValue().size() > 1)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
@@ -145,10 +141,10 @@ public class ModScanner {
         if (files != null) {
             for (File f : files) {
                 if (f.isDirectory()) deleteDirectory(f);
-                else if (!f.delete()) System.err.println("⚠️ Failed to delete file: " + f);
+                else if (!f.delete()) ModLogger.warn("Failed to delete file: " + f);
             }
         }
-        if (!dir.delete()) System.err.println("⚠️ Failed to delete directory: " + dir);
+        if (!dir.delete()) ModLogger.warn("Failed to delete directory: " + dir);
     }
 
     private static boolean findAnyClassFile(File folder) {

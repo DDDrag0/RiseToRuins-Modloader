@@ -18,6 +18,8 @@ public class MainGUI extends JFrame {
     public MainGUI() {
         initComponents();
         setupDragAndDrop();
+        ModLogger.setCallback(this::log);
+        ModLogger.setConsoleOutput(true);
         refreshMods();
         setTitle("Rise to Ruins Mod Loader");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,9 +51,7 @@ public class MainGUI extends JFrame {
         modList = new JList<>(modListModel);
         modList.setCellRenderer(new ModListRenderer());
         modList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
         modList.setComponentPopupMenu(getJPopupMenu());
-
         leftPanel.add(new JScrollPane(modList), BorderLayout.CENTER);
 
         JLabel dropLabel = new JLabel("📂 Drop .zip files here", JLabel.CENTER);
@@ -70,7 +70,6 @@ public class MainGUI extends JFrame {
         splitPane.setLeftComponent(leftPanel);
         splitPane.setRightComponent(rightPanel);
         splitPane.setDividerLocation(300);
-
         add(splitPane, BorderLayout.CENTER);
 
         launchButton.addActionListener(e -> launchGame());
@@ -106,9 +105,7 @@ public class MainGUI extends JFrame {
                     Transferable transferable = evt.getTransferable();
                     if (transferable.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
                         List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
-                        for (File file : files) {
-                            installMod(file);
-                        }
+                        for (File file : files) installMod(file);
                     }
                 } catch (Exception e) {
                     log("❌ Drag & drop error: " + e.getMessage());
@@ -123,8 +120,9 @@ public class MainGUI extends JFrame {
         String baseName = file.getName().replace(".zip", "");
         File modFolder = new File("mods/" + baseName);
         if (modFolder.exists()) {
-            int choice = JOptionPane.showConfirmDialog(this, "A mod named '" + baseName + "' already exists." +
-                    "\nOverwrite?", "Mod already exists", JOptionPane.YES_NO_OPTION);
+            int choice = JOptionPane.showConfirmDialog(this,
+                    "A mod named '" + baseName + "' already exists.\nOverwrite?",
+                    "Mod already exists", JOptionPane.YES_NO_OPTION);
             if (choice != JOptionPane.YES_OPTION) {
                 log("⏭️ Installation cancelled");
                 return;
@@ -145,24 +143,25 @@ public class MainGUI extends JFrame {
         List<ModInfo> mods = ModScanner.scanMods();
         ModStateManager.loadState(mods);
         modListModel.clear();
-        for (ModInfo mod : mods) {
-            modListModel.addElement(mod);
-        }
+        for (ModInfo mod : mods) modListModel.addElement(mod);
         log("🔄 Found " + mods.size() + " mod(s)");
+        saveModsState(); // Remove stale entries from state file
+    }
+
+    private List<ModInfo> getAllMods() {
+        List<ModInfo> all = new ArrayList<>();
+        for (int i = 0; i < modListModel.size(); i++) all.add(modListModel.get(i));
+        return all;
     }
 
     private void toggleSelectedMods(boolean enable) {
-        for (ModInfo mod : modList.getSelectedValuesList()) {
-            mod.setEnabled(enable);
-        }
+        for (ModInfo mod : modList.getSelectedValuesList()) mod.setEnabled(enable);
         modList.repaint();
         saveModsState();
     }
 
     private void toggleAllMods(boolean enable) {
-        for (int i = 0; i < modListModel.size(); i++) {
-            modListModel.get(i).setEnabled(enable);
-        }
+        for (int i = 0; i < modListModel.size(); i++) modListModel.get(i).setEnabled(enable);
         modList.repaint();
         saveModsState();
     }
@@ -176,30 +175,19 @@ public class MainGUI extends JFrame {
                 log("🗑️ Deleted: " + mod.getName());
             }
             refreshMods();
-            saveModsState();
         }
     }
 
     private void saveModsState() {
-        List<ModInfo> allMods = new ArrayList<>();
-        for (int i = 0; i < modListModel.size(); i++) {
-            allMods.add(modListModel.get(i));
-        }
-        ModStateManager.saveState(allMods);
+        ModStateManager.saveState(getAllMods());
     }
 
     private void launchGame() {
         log("🚀 Launching the game in a separate process...");
-        // Collect the enabled mods
-        List<ModInfo> enabledMods = new ArrayList<>();
-        for (int i = 0; i < modListModel.size(); i++) {
-            ModInfo mod = modListModel.get(i);
-            if (mod.isEnabled()) {
-                enabledMods.add(mod);
-            }
-        }
+        List<ModInfo> enabledMods = getAllMods().stream()
+                .filter(ModInfo::isEnabled)
+                .collect(Collectors.toList());
 
-        // Check for conflicts before launching
         Map<String, List<ModInfo>> conflicts = ModScanner.checkConflicts(enabledMods);
         if (!conflicts.isEmpty()) {
             StringBuilder sb = new StringBuilder("Conflicts between mods:\n");
@@ -254,9 +242,7 @@ public class MainGUI extends JFrame {
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             ModInfo mod = (ModInfo) value;
             JLabel label = (JLabel) super.getListCellRendererComponent(list, mod.toString(), index, isSelected, cellHasFocus);
-            if (!mod.isEnabled()) {
-                label.setForeground(Color.GRAY);
-            }
+            if (!mod.isEnabled()) label.setForeground(Color.GRAY);
             return label;
         }
     }

@@ -24,7 +24,7 @@ public class GameLauncher {
         File currentDir = new File(".").getCanonicalFile();
         File coreJar = new File(currentDir, "core.jar");
         if (!coreJar.exists()) {
-            throw new FileNotFoundException("core.jar non trovato in " + currentDir);
+            throw new FileNotFoundException("core.jar not found in " + currentDir);
         }
         classpathEntries.add(coreJar.getAbsolutePath());
 
@@ -57,7 +57,7 @@ public class GameLauncher {
         callback.onGameStarting();
 
         // Reads the process output and sends it to the callback (optional)
-        Thread outputReader = createOutputReaderThread (callback, process);
+        Thread outputReader = createOutputReaderThread(callback, process);
         outputReader.start();
 
         // Waits for the process to finish in a separate thread
