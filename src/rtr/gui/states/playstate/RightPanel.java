@@ -349,20 +349,20 @@ extends PlayStateGUIPanelBase {
     private GUIPanelButton panelGenerateCloud;
     private MissileModule.MissileType missileType = MissileModule.MissileType.BASIC_ARROW;
 
-    //Questo è il bottone del menù quadrato delle categorie, quelle come buildings e strade ecc...
+    //This is the button for the square menu of categories, such as buildings, roads, etc.
     private GUISquarePanelButton modTab;
 
-    //@@Inizio_Dichiarazione_Buttons@@
+    //@@Start_Button_Declarations@@
 
-    //Questo è il bottone per le categorie delle mod, utile per distinguere le varie mod che aggiungono strutture, updatable
+    //This is the button for mod categories, useful for distinguishing between the various mods that add structures, updatable
     private GUIPanelButton panelCategoryMod_1;
 
-    //Questo è il bottone per le strutture aggiunte, updatable
+    //This is the button for added structures, updatable
     private GUIPanelButton panelModStructure_1_1;
     private GUIPanelButton panelModStructure_1_2;
     private GUIPanelButton panelModStructure_1_3;
 
-    //@@Fine_Dichiarazione_Buttons@@
+    //@@End_Button_Declarations@@
 
     public RightPanel(PlayStateGUIController controller, PlayStateGUIData guiData, Graphics g, GameContainer gc, Rectangle mouse) throws SlickException {
         super(controller, guiData, g, gc, mouse);
@@ -969,20 +969,20 @@ extends PlayStateGUIPanelBase {
         this.guiButtons.add(this.panelFireMissile);
         this.panelGenerateCloud = new GUIPanelButton("panelGenerateCloud", 1, "generateCloud", Text.getText("mapEditorPlayRightPanel.button.miscellaneous.generateCloud"), false);
         this.guiButtons.add(this.panelGenerateCloud);
-    //Crea gli effettivi button
+        //Create the actual buttons
 
-        //Qui quello della categoria generale
+        //Here is the one for the general category
         this.modTab = new GUISquarePanelButton("modTab", 0, "mod");
         this.modTab.setToolTip(Text.getText("Mod Structures"));
         this.guiButtons.add(this.modTab);
 
-        //@@Inizio_UpdatePreRender_Buttons@@
+        //@@Start_UpdatePreRender_Buttons@@
 
-        //Qui quello della categoria specifica per mod, updatabile
+        //Here is the button for the mod-specific category, updatable
         this.panelCategoryMod_1 = new GUIPanelButton("panelCategoryMod_1", 1, "modlongpanel", Text.getText("More Motivation"), true);
         this.guiButtons.add(this.panelCategoryMod_1);
 
-        //Qui quello delle strutture aggiuntive, updatabile
+        //Here is the one for additional structures, updatable
         this.panelModStructure_1_1 = new GUIPanelButton("panelModStructure_1_1", 1, "modlongpanel", Text.getText("Wood Motivator"), false);
         this.guiButtons.add(this.panelModStructure_1_1);
         this.panelModStructure_1_2 = new GUIPanelButton("panelModStructure_1_2", 1, "modlongpanel", Text.getText("Rock Motivator"), false);
@@ -990,7 +990,7 @@ extends PlayStateGUIPanelBase {
         this.panelModStructure_1_3 = new GUIPanelButton("panelModStructure_1_3", 1, "modlongpanel", Text.getText("Vegetable Motivator"), false);
         this.guiButtons.add(this.panelModStructure_1_3);
 
-        //@@Fine_UpdatePreRender_Buttons@@
+        //@@End_UpdatePreRender_Buttons@@
 
     }
 
@@ -1037,7 +1037,7 @@ extends PlayStateGUIPanelBase {
         }
         yShift += this.roadsAndDiggingTab.getHeight();
 
-        //Qui il render del quadrato per selezionare la categoria delle strutture moddate
+        //Here is the rendering of the square used to select the category of modded structures
         this.modTab.render(this.g, this.mouse, this.x - 46, this.y + 28 + yShift, false, debug);
         yShift += this.modTab.getHeight();
 
@@ -1751,7 +1751,7 @@ extends PlayStateGUIPanelBase {
             yShift += this.panelGenerateCloud.getHeight();
         }
 
-        //@@Inizio_Creazione_Pannelli@@
+        //@@Start_Panel_Creation@@
 
         if (this.panelCurrentPage == GUIEnums.GUIPanelPage.RIGHT_CATEGORY_MOD_1) {
             this.lastPage = null;
@@ -1772,7 +1772,7 @@ extends PlayStateGUIPanelBase {
             yShift = this.renderBlankPanels(4, this.x, this.y, yShift, this.g);
         }
 
-        //@@Fine_Creazione_Pannelli@@
+        //@@End_Panel_Creation@@
 
         if (this.backPage == null) {
             this.pageBackBottom.render(this.g, this.mouse, this.x, this.y + yShift + 28, true, debug);

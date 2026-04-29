@@ -438,9 +438,9 @@ public class ObjectFlagFactory {
             this.objectFlags.get((Object)MapTilesLoader.TileSet.WOOD_FENCE_GATE_NS).put((ObjectBase.ObjectSubType)subType, new WoodFenceGateNSFlags(MapTilesLoader.TileSet.WOOD_FENCE_GATE_NS, (ObjectBase.ObjectSubType)subType));
             this.objectFlags.get((Object)MapTilesLoader.TileSet.WOOD_FENCE_GATE_WE).put((ObjectBase.ObjectSubType)subType, new WoodFenceGateWEFlags(MapTilesLoader.TileSet.WOOD_FENCE_GATE_WE, (ObjectBase.ObjectSubType)subType));
 
-            //qui vanno le aggiunte per i costruttori delle strutture
+            //Additions for structure constructors go here
 
-            //@@Inizio_Aggiunta_Costruttori_Flags
+            //@@Start_Adding_Constructors_Flags
 
             this.objectFlags.get((Object)MapTilesLoader.TileSet.MOD_STRUCTURE_1).put((ObjectBase.ObjectSubType)subType, new WoodMotivatorFlags(MapTilesLoader.TileSet.MOD_STRUCTURE_1, (ObjectBase.ObjectSubType)subType));
             this.objectFlags.get((Object)MapTilesLoader.TileSet.MOD_STRUCTURE_2).put((ObjectBase.ObjectSubType)subType, new RockMotivatorFlags(MapTilesLoader.TileSet.MOD_STRUCTURE_2, (ObjectBase.ObjectSubType)subType));
@@ -448,7 +448,7 @@ public class ObjectFlagFactory {
             this.objectFlags.get((Object)MapTilesLoader.TileSet.MOD_STRUCTURE_2_2).put((ObjectBase.ObjectSubType)subType, new RockMotivatorFlags(MapTilesLoader.TileSet.MOD_STRUCTURE_2_2, (ObjectBase.ObjectSubType)subType));
             this.objectFlags.get((Object)MapTilesLoader.TileSet.MOD_STRUCTURE_3).put((ObjectBase.ObjectSubType)subType, new VegetableMotivatorFlags(MapTilesLoader.TileSet.MOD_STRUCTURE_3, (ObjectBase.ObjectSubType)subType));
 
-            //@@Fine_Aggiunta_Costruttori_Flags
+            //@@End_Add_Constructors_Flags
 
             ++n2;
         }

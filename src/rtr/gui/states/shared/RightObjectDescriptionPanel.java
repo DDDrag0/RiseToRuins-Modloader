@@ -638,9 +638,9 @@ extends SharedGUIPanelBase {
                 this.setHighlightedObject(MapTilesLoader.TileSet.LOOT_BOX);
             }
 
-            //Qui possono essere aggiunte nuove regole
+            //New rules can be added here
 
-            //@@Inizio_Creazione_Pannelli@@
+            //@@Start_Panel_Creation@@
 
             else if (intersectingButton.equals("panelModStructure_1_1")) {
                 this.setHighlightedObject(MapTilesLoader.TileSet.MOD_STRUCTURE_1);
@@ -652,7 +652,7 @@ extends SharedGUIPanelBase {
                 this.setHighlightedObject(MapTilesLoader.TileSet.MOD_STRUCTURE_3);
             }
 
-            //@@Fine_Creazione_Pannelli@@
+            //@@End_Panel_Creation@@
 
             else {
                 this.resetHighlightedObject();

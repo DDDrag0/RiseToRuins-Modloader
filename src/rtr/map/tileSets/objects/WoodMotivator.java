@@ -16,7 +16,7 @@ public class WoodMotivator extends TileSetBase {
         this.layer = (byte)11;
         this.objectWidth = 2;
         this.objectHeight = 2;
-        this.fileName = "woodMotivator"; //nome del file png dal quale prende l'immagine la torre
+        this.fileName = "woodMotivator"; //Name of the PNG file from which the structure image is taken
         this.name = Text.getText("Wood Motivator");
         this.description = Text.getText("Motivates wood tiles");
     }

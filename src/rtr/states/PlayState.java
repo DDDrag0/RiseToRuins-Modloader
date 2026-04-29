@@ -3669,7 +3669,7 @@ extends StateBase {
             this.gui.select(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelGenerateCloud");
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
-        //qui vanno aggiunti tutti i listener dei vari tasti nuovi
+        //Add all the listeners for the new keys here
 
         if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "modTab")) {
             this.gui.getRightPanel().setPanelPage(GUIEnums.GUIPanelPage.RIGHT_CATEGORY_MOD_1);
@@ -3679,7 +3679,7 @@ extends StateBase {
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
 
-        // @@Inizio_Modifiche_Listener@@
+        // @@Start_Edits_Listener@@
 
         if (this.gui.intersects(GUIControllerBase.GUIPanel.PLAY_STATE_RIGHT_PANEL, "panelCategoryMod_1")) {
             this.gui.getRightPanel().setPanelPage(GUIEnums.GUIPanelPage.RIGHT_MOD_1_1);
@@ -3701,7 +3701,7 @@ extends StateBase {
             sound.playSound(SoundModule.SoundType.BUTTON_CLICK);
         }
 
-        // @@Fine_Modifiche_Listener@@
+        // @@End_Edits_Listener@@
 
     }
 

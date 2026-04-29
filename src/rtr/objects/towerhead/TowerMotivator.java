@@ -78,11 +78,11 @@ public class TowerMotivator extends TowerBase {
     @Override
     protected void findTargetCoordinate() {
 
-        // Ottieni il tipo di edificio (TileSet) dell'oggetto che contiene la torre
+        // Get the building type (TileSet) of the object containing the tower
         MapTilesLoader.TileSet buildingType = this.tower.getObjectFlags().getCurrentType();
         ResourceModule.ResourceType targetResourceType = MOTIVATOR_TARGET_MAP.get(buildingType);
 
-        // Se il tipo non è tra quelli mappati, esci (o logga un errore)
+        // If the type is not among those mapped, exit (or log an error)
         if (targetResourceType == null) {
             return;
         }

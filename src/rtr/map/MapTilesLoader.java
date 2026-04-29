@@ -426,7 +426,7 @@ public class MapTilesLoader
     private static int OBJECT_TILE_SPACING;
     private static int OBJECT_TILE_SUB;
 
-    //Inizio Enums
+    //Enums Start
 
     public enum TileSetType {
         TERRAIN,
@@ -764,9 +764,9 @@ public class MapTilesLoader
         RELIQUARY_UPGRADE_1(new Reliquary(MapTilesLoader.calcObjectTileID(92, 1), 1)),
         RELIQUARY_UPGRADE_2(new Reliquary(MapTilesLoader.calcObjectTileID(92, 2), 2)),
 
-        //tecnicamente il range parte da 93, il sub invece di default è 0, poi collegata agli upgrade, quindi se upgrade è 1 allora il sub è 1, se up2 sub2 e così via...
+        //Technically, the range starts at 93, while the sub is set to 0 by default. It's linked to the upgrades, so if the upgrade is 1, then the sub is 1; if it's up2, the sub is 2, and so on...
 
-        //@@Inizio_Aggiunta_Enums_Strutture
+        //@@Start_Adding_Enums_for_Structures
 
         MOD_STRUCTURE_1(new WoodMotivator(MapTilesLoader.calcObjectTileID(93, 0))),
         MOD_STRUCTURE_2(new RockMotivator(MapTilesLoader.calcObjectTileID(94, 0),0)),
@@ -774,7 +774,7 @@ public class MapTilesLoader
         MOD_STRUCTURE_2_2(new RockMotivator(MapTilesLoader.calcObjectTileID(94, 2),2)),
         MOD_STRUCTURE_3(new VegetableMotivator(MapTilesLoader.calcObjectTileID(95, 0))),
 
-        //@@Fine_Aggiunta_Enums_Strutture
+        //@@End_Adding_Enums_for_Structures
 
         TREES_BLUE_COLLECTED(new TreesBlueCollected(MapTilesLoader.calcTerrainTileID(0, 3))),
         TREES_BLUE_ACCENT(new TreesBlueAccent(MapTilesLoader.calcTerrainTileID(0, 2))),
@@ -954,12 +954,6 @@ public class MapTilesLoader
         MUSHROOMS_ACCENT(new MushroomsAccent(MapTilesLoader.calcTerrainTileID(23, 1))),
         MUSHROOMS(new Mushrooms(MapTilesLoader.calcTerrainTileID(23, 0)), MUSHROOMS_ACCENT, MUSHROOMS_COLLECTED);
 
-        //@@Inizio_Aggiunta_Enums_Tiles
-
-
-
-        //@@Fine_Aggiunta_Enums_Tiles
-
         private TileSetBase tileSetTemplate;
         private TileSet accentTileSet;
         private TileSet collectedTileSet;
@@ -1012,7 +1006,7 @@ public class MapTilesLoader
         }
     }
 
-    //Fine Enums
+    //Enums End
 
     static {
         fireRedVeryLow = new Color(100, 50, 50);

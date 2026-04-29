@@ -79,14 +79,14 @@ public class GUIEnums {
         STATS_MAGIC_AND_ENERGY,
         STATS_OTHER,
 
-        //Qui vengono aggiunti i nuovi enums
+        //New enums are added here
 
-        //@@Inizio_Modifiche_Enum@@
+        //@@Start_Enum_Changes@@
 
         RIGHT_CATEGORY_MOD_1,
         RIGHT_MOD_1_1,
 
-        //@@Fine_Modifiche_Enum@@
+        //@@End_Enum_Changes@@
 
     }
 

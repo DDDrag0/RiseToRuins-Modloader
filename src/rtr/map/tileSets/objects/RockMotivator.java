@@ -16,7 +16,7 @@ public class RockMotivator extends TileSetBase {
         this.layer = (byte)11;
         this.objectWidth = 2;
         this.objectHeight = 2;
-        this.fileName = "rockMotivator"; //nome del file png dal quale prende l'immagine la torre
+        this.fileName = "rockMotivator"; //Name of the PNG file from which the structure image is taken
         this.name = Text.getText("Rock Motivator");
         this.description = Text.getText("Motivates rook tiles");
         switch (this.upgradePhase) {

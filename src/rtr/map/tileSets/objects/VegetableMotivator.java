@@ -16,7 +16,7 @@ public class VegetableMotivator extends TileSetBase {
         this.layer = (byte)11;
         this.objectWidth = 2;
         this.objectHeight = 2;
-        this.fileName = "vegetableMotivator"; //nome del file png dal quale prende l'immagine la torre
+        this.fileName = "vegetableMotivator"; //Name of the PNG file from which the structure image is taken
         this.name = Text.getText("Vegetable Motivator");
         this.description = Text.getText("Motivates raw vegetable tiles");
     }
