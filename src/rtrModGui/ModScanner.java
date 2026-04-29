@@ -1,6 +1,7 @@
 package rtrModGui;
 
 import java.nio.file.Files;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.io.*;
@@ -109,7 +110,7 @@ public class ModScanner {
         }
         if (!validateModStructure(modFolder)) {
             System.err.println("❌ Invalid mod structure (no .class files). Deleting folder.");
-            FileUtils.deleteDirectory(modFolder);
+            deleteDirectory(modFolder);
             return false;
         }
         System.out.println("✅ " + fileCount + " files extracted to " + modFolder.getPath());
@@ -123,6 +124,31 @@ public class ModScanner {
             return false;
         }
         return true;
+    }
+
+    public static Map<String, List<ModInfo>> checkConflicts(List<ModInfo> mods) {
+        Map<String, List<ModInfo>> classToMods = new HashMap<>();
+        for (ModInfo mod : mods) {
+            for (String cls : mod.getModifiedClasses()) {
+                classToMods.computeIfAbsent(cls, k -> new ArrayList<>()).add(mod);
+            }
+        }
+        // Keep only those with more than one mod
+        return classToMods.entrySet().stream()
+                .filter(e -> e.getValue().size() > 1)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public static void deleteDirectory(File dir) {
+        if (!dir.exists()) return;
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                if (f.isDirectory()) deleteDirectory(f);
+                else if (!f.delete()) System.err.println("⚠️ Failed to delete file: " + f);
+            }
+        }
+        if (!dir.delete()) System.err.println("⚠️ Failed to delete directory: " + dir);
     }
 
     private static boolean findAnyClassFile(File folder) {

@@ -35,6 +35,10 @@ public class ModInfo {
         modifiedClasses.add(className);
     }
 
+    public List<String> getModifiedClasses() {
+        return modifiedClasses;
+    }
+
     @Override
     public String toString() {
         return name + " (" + modifiedClasses.size() + " classes" +

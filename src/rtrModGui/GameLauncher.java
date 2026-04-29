@@ -1,64 +1,103 @@
 package rtrModGui;
 
 import java.io.*;
-import java.net.*;
-import java.lang.reflect.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameLauncher {
 
-    public static void launch(List<ModInfo> mods, GameLauncherCallback callback) throws Exception {
+    public static Process launch(List<ModInfo> mods, GameLauncherCallback callback) throws IOException {
+        // 1. Find the path to the Java executable
+        String javaHome = System.getProperty("java.home");
+        String javaBin = javaHome + File.separator + "bin" + File.separator + "java";
+
+        // 2. Builds the classpath: active mods (directories) + core.jar + libraries
+        List<String> classpathEntries = new ArrayList<>();
+
+        // Add the mod directories (in order; the first one takes priority)
+        for (ModInfo mod : mods) {
+            if (mod.isEnabled()) {
+                classpathEntries.add(mod.getPath());
+            }
+        }
+
+        // Add core.jar and libraries
         File currentDir = new File(".").getCanonicalFile();
-        List<URL> jarUrls = new ArrayList<>();
         File coreJar = new File(currentDir, "core.jar");
         if (!coreJar.exists()) {
-            throw new FileNotFoundException("core.jar not found. Please place the mod loader in the game folder.");
+            throw new FileNotFoundException("core.jar non trovato in " + currentDir);
         }
-        jarUrls.add(coreJar.toURI().toURL());
+        classpathEntries.add(coreJar.getAbsolutePath());
+
         File libFolder = new File(currentDir, "lib/jars");
         if (libFolder.exists()) {
-            File[] libJars = libFolder.listFiles((dir, name) -> name.endsWith(".jar"));
-            if (libJars != null) {
-                for (File jar : libJars) {
-                    jarUrls.add(jar.toURI().toURL());
+            File[] jars = libFolder.listFiles((dir, name) -> name.endsWith(".jar"));
+            if (jars != null) {
+                for (File jar : jars) {
+                    classpathEntries.add(jar.getAbsolutePath());
                 }
             }
         }
-        configureNatives(currentDir);
-        ModClassLoader modLoader = new ModClassLoader(ClassLoader.getSystemClassLoader(), jarUrls.toArray(new URL[0]), mods);
-        Thread.currentThread().setContextClassLoader(modLoader);
-        Class<?> mainClass = modLoader.loadClass("rtr.system.Launcher");
-        Method mainMethod = mainClass.getMethod("main", String[].class);
+
+        String classpath = classpathEntries.stream().collect(Collectors.joining(File.pathSeparator));
+
+        // 3. Set the natives (environment variable)
+        String nativePath = getNativePath(currentDir);
+        List<String> command = new ArrayList<>();
+        command.add(javaBin);
+        command.add("-Djava.library.path=" + nativePath);
+        command.add("-cp");
+        command.add(classpath);
+        command.add("rtr.system.Launcher");
+
+        ProcessBuilder pb = new ProcessBuilder(command);
+        pb.directory(currentDir);
+        pb.redirectErrorStream(true); // Merges stdout and stderr
+
+        Process process = pb.start();
         callback.onGameStarting();
-        Thread gameThread = new Thread(() -> {
+
+        // Reads the process output and sends it to the callback (optional)
+        Thread outputReader = new Thread(() -> {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    callback.onGameOutput(line);
+                }
+            } catch (IOException e) {
+                // The process may already be finished; ignore it
+                if (process.isAlive()) callback.onGameError(e);
+            }
+        });
+        outputReader.setDaemon(true);
+        outputReader.start();
+
+        // Waits for the process to finish in a separate thread
+        Thread waitForThread = new Thread(() -> {
             try {
-                mainMethod.invoke(null, (Object) new String[]{});
-                callback.onGameFinished();
-            } catch (Exception e) {
+                int exitCode = process.waitFor();
+                callback.onGameFinished(exitCode);
+            } catch (InterruptedException e) {
                 callback.onGameError(e);
             }
         });
-        gameThread.setContextClassLoader(modLoader);
-        gameThread.start();
+        waitForThread.start();
+
+        return process;
     }
 
-    private static void configureNatives(File currentDir) {
-        File nativesFolder = new File(currentDir, "natives");
-        if (!nativesFolder.exists()) {
-            nativesFolder = new File(currentDir, "lib/natives");
+    private static String getNativePath(File currentDir) {
+        File natives = new File(currentDir, "natives");
+        if (!natives.exists()) {
+            natives = new File(currentDir, "lib/natives");
         }
-        if (nativesFolder.exists()) {
-            String nativePath = nativesFolder.getAbsolutePath();
-            String currentPath = System.getProperty("java.library.path", "");
-            System.setProperty("java.library.path", nativePath + File.pathSeparator + currentPath);
-        } else {
-            System.err.println("⚠️ No natives folder found. LWJGL may fail to load.");
-        }
+        return natives.exists() ? natives.getAbsolutePath() : "";
     }
 
     public interface GameLauncherCallback {
         void onGameStarting();
-        void onGameFinished();
+        void onGameOutput(String line);
+        void onGameFinished(int exitCode);
         void onGameError(Exception e);
     }
 }

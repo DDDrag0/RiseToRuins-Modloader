@@ -7,6 +7,8 @@ import java.awt.dnd.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MainGUI extends JFrame {
     private DefaultListModel<ModInfo> modListModel;
@@ -127,7 +129,7 @@ public class MainGUI extends JFrame {
                 log("⏭️ Installation cancelled");
                 return;
             } else {
-                FileUtils.deleteDirectory(modFolder);
+                ModScanner.deleteDirectory(modFolder);
             }
         }
         if (ModScanner.installMod(file)) {
@@ -136,10 +138,12 @@ public class MainGUI extends JFrame {
         } else {
             log("❌ Installation failed");
         }
+        saveModsState();
     }
 
     private void refreshMods() {
         List<ModInfo> mods = ModScanner.scanMods();
+        ModStateManager.loadState(mods);
         modListModel.clear();
         for (ModInfo mod : mods) {
             modListModel.addElement(mod);
@@ -152,6 +156,7 @@ public class MainGUI extends JFrame {
             mod.setEnabled(enable);
         }
         modList.repaint();
+        saveModsState();
     }
 
     private void toggleAllMods(boolean enable) {
@@ -159,6 +164,7 @@ public class MainGUI extends JFrame {
             modListModel.get(i).setEnabled(enable);
         }
         modList.repaint();
+        saveModsState();
     }
 
     private void deleteSelectedMods() {
@@ -166,15 +172,25 @@ public class MainGUI extends JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             for (ModInfo mod : modList.getSelectedValuesList()) {
                 File modFolder = new File(mod.getPath());
-                FileUtils.deleteDirectory(modFolder);
+                ModScanner.deleteDirectory(modFolder);
                 log("🗑️ Deleted: " + mod.getName());
             }
             refreshMods();
+            saveModsState();
         }
     }
 
+    private void saveModsState() {
+        List<ModInfo> allMods = new ArrayList<>();
+        for (int i = 0; i < modListModel.size(); i++) {
+            allMods.add(modListModel.get(i));
+        }
+        ModStateManager.saveState(allMods);
+    }
+
     private void launchGame() {
-        log("🚀 Starting game...");
+        log("🚀 Launching the game in a separate process...");
+        // Collect the enabled mods
         List<ModInfo> enabledMods = new ArrayList<>();
         for (int i = 0; i < modListModel.size(); i++) {
             ModInfo mod = modListModel.get(i);
@@ -182,24 +198,46 @@ public class MainGUI extends JFrame {
                 enabledMods.add(mod);
             }
         }
+
+        // Check for conflicts before launching
+        Map<String, List<ModInfo>> conflicts = ModScanner.checkConflicts(enabledMods);
+        if (!conflicts.isEmpty()) {
+            StringBuilder sb = new StringBuilder("Conflicts between mods:\n");
+            for (Map.Entry<String, List<ModInfo>> e : conflicts.entrySet()) {
+                sb.append("  - ").append(e.getKey()).append(" : ");
+                sb.append(e.getValue().stream().map(ModInfo::getName).collect(Collectors.joining(", ")));
+                sb.append("\n");
+            }
+            sb.append("\nDo you still want to start the game?");
+            int choice = JOptionPane.showConfirmDialog(this, sb.toString(), "Mod conflicts", JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                log("❌ Start canceled due to conflicts.");
+                return;
+            }
+        }
+
         new Thread(() -> {
             try {
                 GameLauncher.launch(enabledMods, new GameLauncher.GameLauncherCallback() {
                     @Override
                     public void onGameStarting() {
-                        SwingUtilities.invokeLater(() -> log("🎮 Game is running..."));
+                        SwingUtilities.invokeLater(() -> log("🎮 Game started (PID running...)"));
                     }
                     @Override
-                    public void onGameFinished() {
-                        SwingUtilities.invokeLater(() -> log("✅ Game stopped"));
+                    public void onGameOutput(String line) {
+                        SwingUtilities.invokeLater(() -> log("[GAME] " + line));
+                    }
+                    @Override
+                    public void onGameFinished(int exitCode) {
+                        SwingUtilities.invokeLater(() -> log("✅ Game ended with code " + exitCode));
                     }
                     @Override
                     public void onGameError(Exception e) {
-                        SwingUtilities.invokeLater(() -> log("❌ Error: " + e.getMessage()));
+                        SwingUtilities.invokeLater(() -> log("❌ Error during processing: " + e.getMessage()));
                     }
                 });
             } catch (Exception e) {
-                log("❌ Launch error: " + e.getMessage());
+                SwingUtilities.invokeLater(() -> log("❌ Error during startup: " + e.getMessage()));
             }
         }).start();
     }
