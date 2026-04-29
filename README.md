@@ -28,7 +28,7 @@ It allows you to load modifications (mods) without altering the original game fi
 - **Non‑intrusive** – the original `core.jar` and game files are never modified.
 - **Drag & drop installation** – drop `.zip` files directly into the window.
 - **Full mod management** – enable, disable or delete mods with one click.
-- **Multi‑mod support** – load several mods at the same time; the custom class loader merges them transparently.
+- **Multi‑mod support** – load several mods at the same time; you can manage multiple mods on a single window.
 - **Real‑time log** – see exactly what happens during installation and game launch.
 - **Automatic native handling** – detects and configures LWJGL native libraries (`natives/` or `lib/natives/`).
 - **Preserves original game** – the game itself stays untouched; the loader runs alongside it.
@@ -111,15 +111,18 @@ All enabled mods are applied **transparently** – the game behaves as if the or
 ## For Developers
 
 ### Building from Source
+> ⚠️ **Important:**
+> I'm developing the modloader inside the game folder, so if errors appear, the solution is most likely to develop there. You can copy the game folder into any folder you choose, as the game always works for testing.
+The project is structured as a standard Java application.
 
-The project is structured as a standard Java application. To build it yourself:
+To build it yourself:
 
 1. Clone the repository:
    ```
    git clone https://github.com/DDDrag0/RiseToRuins-Modloader.git
    cd rise-to-ruins-modloader
    ```
-2. Ensure you have **JDK 8** installed.
+2. Ensure you have **JDK 8** or + installed, but i recomend 8 for no problems with newer versions as the game uses JDK 8.
 3. Compile the sources (all classes are in the `rtrModGui` package):
    ```
    javac -d out rtrModGui/*.java
@@ -132,17 +135,20 @@ The project is structured as a standard Java application. To build it yourself:
 
 ### Bytecode Viewer Plugin (Complementary Tool)
 
-To easily create mods, you can use the companion plugin for **Bytecode Viewer** – **Export Modified Only**. This plugin allows you to export only the classes you have modified during a reverse‑engineering session, directly as a zip file ready to be dropped into the mod loader.
+To easily create mods I strongly recommend Bytecode Viewer under CFR decompiler, you can also use the companion plugin for **Bytecode Viewer** – **Export Modified Only**. This plugin allows you to export only the classes you have modified during a reverse‑engineering session, directly as a zip file ready to be dropped into the mod loader.
 
-- **Repository:** [link‑to‑plugin‑repo]
-- **Installation:** Download the `ExportModifiedOnly.jar` and place it in the Bytecode Viewer plugins folder (`%USERPROFILE%\.Bytecode-Viewer\plugins\` on Windows, `~/.Bytecode-Viewer/plugins/` on Linux/macOS).
+- **Repository:** [ExportModifiedOnly](https://github.com/DDDrag0/ExportModifiedOnly-Bytecode-Viewer-Plugin)
+- **Installation:**
+  1. Download the JAR: Grab the latest `ExportModifiedOnly.jar` from the [Releases](https://github.com/DDDrag0/ExportModifiedOnly-Bytecode-Viewer-Plugin/releases) page.
+  2. In BCV go to Plugin → Open Plugin... → It should open a file explorer, select the `ExportModifiedOnly.jar`.
+  3. Click Run so that it is active 
 - **Usage:**  
   1. Open a jar/class in Bytecode Viewer.  
   2. Run the plugin (first time captures original state).  
   3. Modify your classes and save the workspace.  
   4. Run the plugin again – a zip containing only the modified classes is created in the same directory as your last save.
 
-This plugin is maintained separately and is also open source under the MIT license.
+This plugin is maintained separately and is distributed under the GNU General Public License v3.0, the same license as Bytecode Viewer.
 
 ---
 
