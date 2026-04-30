@@ -24,7 +24,6 @@ import rtr.map.MapModule;
 import rtr.map.MapTilesLoader;
 import rtr.objects.ObjectBase;
 import rtr.road.RoadModule;
-import rtr.states.StateBase;
 import rtr.system.Game;
 import rtr.system.ScaleControl;
 import rtr.system.gamemodetemplates.GameModeTemplateBase;

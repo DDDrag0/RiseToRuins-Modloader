@@ -1,14 +1,10 @@
 # Ignora tutto nella directory principale (root) tranne le eccezioni
 /*
-!/src/
+!/modLoader/
+!/modularClasses/
+!/savingClasses/
 !/.gitignore
 !/README.md
-
-# Dentro src, ignora tutto tranne la cartella rtrModGui gravissimo errore mettere sti commenti in italianowowonaiodai
-/src/*
-!/src/rtrModGui/
-!/src/rtr/
-!/src/unusedClasses/
 
 #░░░░░░░░░░░▐
 #░░░░░░▄▄▄░░▄██▄

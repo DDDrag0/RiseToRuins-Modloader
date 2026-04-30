@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.Properties;
 import org.apache.commons.io.FileUtils;
 import org.newdawn.slick.SlickException;
-import rtr.ModuleBase;
-import rtr.SettingsParser;
 import rtr.console.Console;
 import rtr.save.SavedGamesHandler;
 import rtr.states.StateBase;

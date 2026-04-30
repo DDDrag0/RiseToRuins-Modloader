@@ -10,15 +10,6 @@ import rtr.TimeModule;
 import rtr.console.Console;
 import rtr.font.Text;
 import rtr.system.Game;
-import rtr.system.gamemodetemplates.GameModeTemplateCustom;
-import rtr.system.gamemodetemplates.GameModeTemplateMainMenu;
-import rtr.system.gamemodetemplates.GameModeTemplateMapEditor;
-import rtr.system.gamemodetemplates.GameModeTemplateNightmare;
-import rtr.system.gamemodetemplates.GameModeTemplatePeaceful;
-import rtr.system.gamemodetemplates.GameModeTemplateSandbox;
-import rtr.system.gamemodetemplates.GameModeTemplateSurvival;
-import rtr.system.gamemodetemplates.GameModeTemplateTraditional;
-import rtr.system.gamemodetemplates.GameModeTemplateWorldMap;
 
 public class GameModeTemplateBase {
     protected int baseSpawnRate;

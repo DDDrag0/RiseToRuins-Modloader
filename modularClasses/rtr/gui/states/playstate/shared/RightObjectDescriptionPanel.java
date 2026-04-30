@@ -1,4 +1,4 @@
-package rtr.gui.states.shared;
+package rtr.gui.states.playstate.shared;
 
 import java.util.ArrayList;
 import java.util.EnumMap;

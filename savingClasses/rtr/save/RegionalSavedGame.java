@@ -29,8 +29,6 @@ import rtr.console.Console;
 import rtr.font.Text;
 import rtr.map.MapModule;
 import rtr.map.MiniMapModule;
-import rtr.save.SavedGamesHandler;
-import rtr.save.YMLDataMap;
 import rtr.states.StateBase;
 import rtr.system.Game;
 import rtr.system.gamemodetemplates.GameModeTemplateBase;
