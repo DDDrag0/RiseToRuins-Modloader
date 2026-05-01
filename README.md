@@ -1,5 +1,8 @@
 # Rise to Ruins Mod Loader
 
+> ⚠️ **Important:**
+> Some updates have been made to the modloader and/or will be made, so some of the information is currently out of date, but it will be updated as soon as possible.
+
 A lightweight, non-intrusive mod loader for the game **Rise to Ruins**.  
 It allows you to load modifications (mods) without altering the original game files, provides a simple graphical interface to manage them, and handles all the technical complexities (class loading, native libraries, dependencies) automatically.
 
@@ -156,10 +159,7 @@ This plugin is maintained separately and is distributed under the GNU General Pu
 
 The following enhancements are planned for future releases:
 
-- **Persistent mod state** – the loader will remember which mods are enabled/disabled between sessions.
-- **Support for additional structures** – allow mods that modify not only `ObjectFlags` but also tiles, entities, or other game components.
 - **In‑app mod information** – display a short description, author, and version for each mod (via a `mod.json` file inside the zip).
-- **Mod conflict detection** – warn if two mods try to modify the same class.
 
 Your feedback and contributions are always welcome!
 
