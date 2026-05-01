@@ -13,8 +13,8 @@ import rtr.objects.towerhead.TowerBase;
 import rtr.utilities.OrderedPair;
 import rtr.utilities.Utilities;
 
-public class CrystalMotivatorFlags extends ObjectFlags {
-    public CrystalMotivatorFlags(MapTilesLoader.TileSet currentType, ObjectBase.ObjectSubType subType) {
+public class AllInOne extends ObjectFlags {
+    public AllInOne(MapTilesLoader.TileSet currentType, ObjectBase.ObjectSubType subType) {
         super(currentType, subType);
     }
 

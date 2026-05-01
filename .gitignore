@@ -1,9 +1,6 @@
 # Ignora tutto nella directory principale (root) tranne le eccezioni
 /*
 !/modLoader/
-!/modularClasses/
-!/modTesting/
-!/savingClasses/
 !/.gitignore
 !/README.md
 
